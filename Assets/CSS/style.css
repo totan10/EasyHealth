@@ -1,23 +1,30 @@
-/* Example custom CSS styles */
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-/* Navbar positioning */
-.navbar {
-    position: relative;
-    z-index: 1000; /* Ensure navbar is above other elements */
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Ensure navbar contents are visible */
-.navbar-brand,
-.navbar-nav,
-.nav-link,
-.nav-link img {
-    position: relative;
-    z-index: 1000; /* Adjust as needed based on stacking order */
-    color: #fff;
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Navbar positioning */
+.navbar {
+  position: relative;
+  z-index: 1000; /* Ensure navbar is above other elements */
+}
+
+.navbar-brand img {
+  max-width: 100%;
+  height: auto;
 }
 
 
@@ -26,11 +33,6 @@
 #videoContainer {
     position: relative;
     z-index: 999; /* Ensure content is above the video (adjust as needed) */
-}
-
-.navbar-brand img {
-    max-width: 100%;
-    height: auto;
 }
 
 
@@ -54,14 +56,6 @@
         opacity: 0;
     }
 }
-.slider-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: -1;
-  }
- 
-  
+
+
 
