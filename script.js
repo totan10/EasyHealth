@@ -343,7 +343,7 @@ function createBanner() {
   bannerContainer.style.backgroundSize = "cover";
   bannerContainer.style.height = "300px"; // Set height for the banner
   bannerContainer.style.position = "relative"; // Set position relative for absolute elements
-
+  bannerContainer.style.zIndex = "-1";
   // Create Left Content Div
   const leftContent = document.createElement("div");
   leftContent.className = "left-content";
@@ -400,7 +400,36 @@ function createBanner() {
 
   // Append Left Content Div to Banner Container
   bannerContainer.appendChild(leftContent);
+  // Create Image Container (for medium and large screens)
+  const imageContainer = document.createElement("div");
+  imageContainer.className = "image-container";
+  imageContainer.style.position = "absolute";
+  imageContainer.style.right = "10%"; // Adjust right positioning
+  imageContainer.style.top = "50%"; // Center vertically
+  imageContainer.style.transform = "translateY(-50%)";
+  imageContainer.style.display = "flex";
+  imageContainer.style.alignItems = "center";
+  imageContainer.style.zIndex = "99";
+  // Create Image 1
+  const image1 = document.createElement("img");
+  image1.src = "/Assets/images/google.png";
+  image1.alt = "Image 1";
+  image1.style.width = "160px"; // Adjust width as needed
+  image1.style.marginRight = "160px"; // Add margin between images
+  image1.style.backgroundColor = "#0F2C3A";
+  imageContainer.appendChild(image1);
 
+  // Create Image 2
+  const image2 = document.createElement("img");
+  image2.src = "/Assets/images/glassdoor.png";
+  image2.alt = "Image 2";
+  image2.style.width = "160px"; // Adjust width as needed
+  image2.style.marginLeft = "60px"; // Add margin between images
+  image2.style.backgroundColor = "#0F2C3A";
+  imageContainer.appendChild(image2);
+
+  // Append Image Container to Banner Container
+  bannerContainer.appendChild(imageContainer);
   // Create Right Content Div (for medium and large screens)
   const rightContent = document.createElement("div");
   rightContent.className = "right-content";
@@ -412,7 +441,7 @@ function createBanner() {
   rightContent.style.height = "1px";
   rightContent.style.backgroundColor = "#1e90ff"; // Light blue color
   rightContent.style.display = "none"; // Initially hide for small screens
-
+  rightContent.style.zIndex = "-1";
   setTimeout(() => {
     console.log(rightContent.offsetWidth);
     // Create small circles at intervals of 20px (for medium and large screens)
@@ -451,6 +480,12 @@ function createBanner() {
       button.style.fontSize = "14px";
       button.style.marginLeft = "10%";
       rightContent.style.display = "none"; // Show right content
+      imageContainer.style.position = "relative"; // Reset position for images
+      imageContainer.style.right = "auto"; // Reset right positioning
+      imageContainer.style.top = "auto"; // Reset top positioning
+      imageContainer.style.transform = "none"; // Reset transform
+      imageContainer.style.display = "block"; // Display images as block (below leftContent)
+      imageContainer.style.marginTop = "20px"; // Add margin from leftContent
     } else {
       // For screens > 768px width
       leftContent.style.width = "35%";
@@ -461,6 +496,12 @@ function createBanner() {
       button.style.fontSize = "16px";
       button.style.marginLeft = "41%";
       rightContent.style.display = "block"; // Show right content
+      imageContainer.style.position = "absolute"; // Position images
+      imageContainer.style.right = "10%"; // Adjust right positioning
+      imageContainer.style.top = "50%"; // Center vertically
+      imageContainer.style.transform = "translateY(-50%)";
+      imageContainer.style.display = "flex"; // Display images inline
+      imageContainer.style.marginTop = "0"; // Reset margin top
     }
   }
 
@@ -470,11 +511,151 @@ function createBanner() {
   // Listen for changes in screen size and adjust styles accordingly
   mediaQuery.addEventListener("change", handleResponsiveLayout);
 
-  // Clean up the event listener when not needed (e.g., component unmount)
-  // mediaQuery.removeEventListener("change", handleResponsiveLayout);
+  // Call the function to create the managed solutions section
+  createManagedSolutionsSection();
 }
 
 // Ensure that everything is executed after DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
   new WOW().init(); // Initialize WOW.js animations
 });
+
+function createManagedSolutionsSection() {
+  // Create Full Screen Container
+  const fullScreenContainer = document.createElement("div");
+  fullScreenContainer.className = "full-screen-container";
+  fullScreenContainer.style.width = "100vw";
+  fullScreenContainer.style.height = "100vh";
+  //fullScreenContainer.style.backgroundColor = "#f2f2f2"; // Light background color
+  fullScreenContainer.style.display = "flex";
+  //fullScreenContainer.style.justifyContent = "center";
+  fullScreenContainer.style.alignItems = "center";
+  fullScreenContainer.style.flexDirection = "column";
+  fullScreenContainer.style.overflow = "hidden"; // Hide overflow to prevent horizontal scroll
+
+  // Header Text
+  const headerText = document.createElement("h4");
+  headerText.textContent = "MANAGED BUSINESS ";
+  headerText.style.fontSize = "22px";
+  headerText.style.color = "black"; // Dark text color
+  headerText.style.marginTop = "20px";
+  headerText.style.padding = "10px";
+  headerText.style.fontWeight = "700";
+  // Blue Text Span
+  const blueText = document.createElement("span");
+  blueText.textContent = "SOLUTIONS";
+  blueText.style.color = "#1e90ff"; // Blue text color
+  headerText.appendChild(blueText);
+
+  fullScreenContainer.appendChild(headerText);
+
+  // Gradient Line with Circle
+  const lineContainer = document.createElement("div");
+  lineContainer.style.position = "relative";
+  lineContainer.style.width = "60%"; // Adjust line width as needed
+  lineContainer.style.height = "1.5px"; // Line thickness
+  lineContainer.style.background =
+    "linear-gradient(to right, #1e90ff, #a6e4ff)"; // Gradient color
+
+  // Circle at Left Endpoint
+  const circle = document.createElement("div");
+  circle.style.position = "absolute";
+  circle.style.width = "10px"; // Circle diameter
+  circle.style.height = "10px";
+  circle.style.borderRadius = "50%";
+  circle.style.backgroundColor = "#1e90ff"; // Circle color
+  circle.style.left = "-1px";
+  circle.style.top = "-8px"; // Position above the line
+  lineContainer.appendChild(circle);
+
+  fullScreenContainer.appendChild(lineContainer);
+  // Paragraph
+  const paragraph = document.createElement("p");
+  paragraph.textContent =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+  paragraph.style.marginTop = "20px";
+  paragraph.style.padding = "0 20px";
+  paragraph.style.textAlign = "center";
+  paragraph.style.fontSize = "16px";
+  paragraph.style.opacity = "0";
+  paragraph.style.transform = "translateY(-20px)";
+  paragraph.style.transition =
+    "opacity 0.5s ease-in-out, transform 0.5s ease-in-out";
+  fullScreenContainer.appendChild(paragraph);
+
+  // Boxes Container
+  const boxesContainer = document.createElement("div");
+  boxesContainer.className = "boxes-container";
+  boxesContainer.style.display = "grid";
+  boxesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(30%, 1fr))";
+  boxesContainer.style.gap = "20px";
+  boxesContainer.style.width='60%'
+  boxesContainer.style.justifyItems = "center";
+  boxesContainer.style.marginTop = "20px";
+  fullScreenContainer.appendChild(boxesContainer);
+
+  // Individual Boxes Data
+  const boxesData = [
+    { name: "Users Globally", count: "500+", icon: "users" },
+    { name: "Global Partners", count: "50+", icon: "globe" },
+    { name: "User Satisfaction Rate", count: "95%", icon: "smile" },
+    { name: "Case Studies", count: "25+", icon: "book" },
+    { name: "Business Applications", count: "200+", icon: "briefcase" },
+  ];
+
+  // Create Box Function
+  function createBox(text, count, iconClass) {
+    const box = document.createElement("div");
+    box.className = "box";
+    box.style.width = "80%";
+    box.style.height = "160px";
+    box.style.padding = "10px";
+    box.style.border = "1px solid #1e90ff";
+    box.style.borderRadius = "5px";
+    box.style.textAlign = "center";
+
+    // Font Awesome Icon
+    const icon = document.createElement("i");
+    icon.className = `fas fa-${iconClass}`; // Font Awesome icon class
+    icon.style.fontSize = "24px";
+    icon.style.color = "#1e90ff";
+    box.appendChild(icon);
+
+    const countSpan = document.createElement("span");
+    countSpan.textContent = count;
+    countSpan.style.display = "block";
+    countSpan.style.fontSize = "20px";
+    countSpan.style.fontWeight = "bold";
+    countSpan.style.color = "#1e90ff";
+    box.appendChild(countSpan);
+
+    const label = document.createElement("div");
+    label.textContent = text;
+    box.appendChild(label);
+
+    return box;
+  }
+
+  // Populate Boxes
+  boxesData.forEach((data) => {
+    const box = createBox(data.name, data.count, data.icon);
+    boxesContainer.appendChild(box);
+  });
+
+  // Append Full Screen Container to document body
+  document.body.appendChild(fullScreenContainer);
+}
+// Function to animate count from start to end value
+function animateCount(element, start, end, duration) {
+  let current = start;
+  const range = end - start;
+  const increment = end > start ? 1 : -1;
+  const stepTime = Math.abs(Math.floor(duration / range));
+  const timer = setInterval(() => {
+    current += increment;
+    element.textContent = current + "+";
+    if (current === end) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
