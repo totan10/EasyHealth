@@ -255,7 +255,7 @@ function createAboutUs() {
     textDiv.setAttribute("data-wow-duration", "1s");
     textDiv.setAttribute("data-wow-delay", "0.5s");
     textDiv.style.opacity = "0.8"; // Faded effect
-    textDiv.style.boxShadow='0 0 2px wheat'
+    textDiv.style.boxShadow = "0 0 2px wheat";
     const header = document.createElement("h3");
     header.textContent = data.header;
     header.className = "text-xl font-semibold mb-2"; // Margin below header
@@ -263,7 +263,7 @@ function createAboutUs() {
     const paragraph = document.createElement("p");
     paragraph.textContent = data.content;
     paragraph.className = "text-base leading-7"; // Adjust line spacing
-    paragraph.style.textAlign="justify"
+    paragraph.style.textAlign = "justify";
     // Append header and paragraph to textDiv
     textDiv.appendChild(header);
     textDiv.appendChild(paragraph);
@@ -355,18 +355,23 @@ function createBanner() {
   // Two-lined Header
   const headerText = document.createElement("div");
   headerText.style.color = "#fff";
-  headerText.style.fontSize = "18px";
-  headerText.style.marginLeft=`40%`
+  headerText.style.fontSize = "20px";
+
   //headerText.style.fontWeight = "bold";
-  headerText.style.lineHeight = "1.2";
-  headerText.textContent = "Looking For High Quality\nServices For Your Business?";
+
+  headerText.innerHTML =
+    "Looking For High Quality<br>Services For Your Business?";
+  headerText.style.marginTop = "50px";
+  headerText.className = "text-base leading-7";
   leftContent.appendChild(headerText);
 
   // Paragraph
   const paragraphText = document.createElement("p");
   paragraphText.style.color = "#2fb4cb";
   paragraphText.style.fontSize = "16px";
-  paragraphText.textContent = "We have a team to help you achieve your goals.";
+  paragraphText.textContent = "We have a team to help you...!";
+  paragraphText.style.marginTop = "10px";
+  paragraphText.className = "text-base leading-7";
   leftContent.appendChild(paragraphText);
 
   // Button
@@ -376,46 +381,86 @@ function createBanner() {
   button.style.color = "#fff";
   button.style.border = "2px solid #fff";
   button.style.borderRadius = "5px";
-  button.style.padding = "10px 20px";
-  button.style.marginTop = "20px";
+  button.style.padding = "10px 30px";
+  button.style.marginTop = "30px";
   button.style.cursor = "pointer";
 
   // Hover Effect for Button
-  button.addEventListener("mouseenter", () => {
-    button.style.backgroundColor = "#000";
-    button.style.color = "#fff";
+  button.addEventListener("mouseover", () => {
+    button.style.backgroundColor = "#fff";
+    button.style.color = "#000";
   });
 
-  button.addEventListener("mouseleave", () => {
-    button.style.backgroundColor = "none";
+  // Hover Effect for Button
+  button.addEventListener("mouseout", () => {
+    button.style.backgroundColor = "transparent";
     button.style.color = "#fff";
   });
-
   leftContent.appendChild(button);
 
   // Append Left Content Div to Banner Container
   bannerContainer.appendChild(leftContent);
 
+  // Create Right Content Div (for medium and large screens)
+  const rightContent = document.createElement("div");
+  rightContent.className = "right-content";
+  rightContent.style.position = "absolute";
+  rightContent.style.right = "0";
+  rightContent.style.top = "50%";
+  rightContent.style.transform = "translateY(-50%)";
+  rightContent.style.width = "65%";
+  rightContent.style.height = "1px";
+  rightContent.style.backgroundColor = "#1e90ff"; // Light blue color
+  rightContent.style.display = "none"; // Initially hide for small screens
+
+  setTimeout(() => {
+    console.log(rightContent.offsetWidth);
+    // Create small circles at intervals of 20px (for medium and large screens)
+    const numCircles = Math.floor(rightContent.offsetWidth / 50);
+    console.log(numCircles);
+    for (let i = 1; i <= numCircles; i++) {
+      const circle = document.createElement("div");
+      circle.className = "circle";
+      circle.style.position = "absolute";
+      circle.style.width = "10px";
+      circle.style.height = "10px";
+      circle.style.borderRadius = "50%";
+      circle.style.backgroundColor = "#1e90ff"; // Light blue color
+      circle.style.left = `${i * 50}px`;
+      circle.style.top = "-4px"; // Position above the line
+      rightContent.appendChild(circle);
+    }
+  });
+
+  // Append Right Content Div to Banner Container
+  bannerContainer.appendChild(rightContent);
+
   // Append Banner Container to document body
   document.body.appendChild(bannerContainer);
 
-  // Responsive Styles using Media Queries
   const mediaQuery = window.matchMedia("(max-width: 768px)");
 
   function handleResponsiveLayout(mediaQuery) {
     if (mediaQuery.matches) {
       // For screens <= 768px width
       leftContent.style.width = "100%";
-      headerText.style.fontSize = "18px";
-      headerText.style.margin=`10% 25%`
-      paragraphText.style.fontSize = "14px";
+      headerText.style.fontSize = "16px";
+      headerText.style.marginLeft = `10%`;
+      paragraphText.style.fontSize = "12px";
+      paragraphText.style.marginLeft = `10%`;
       button.style.fontSize = "14px";
+      button.style.marginLeft = "10%";
+      rightContent.style.display = "none"; // Show right content
     } else {
       // For screens > 768px width
       leftContent.style.width = "35%";
-      headerText.style.fontSize = "24px";
+      headerText.style.fontSize = "20px";
+      headerText.style.marginLeft = `40%`;
       paragraphText.style.fontSize = "16px";
+      paragraphText.style.marginLeft = `40%`;
       button.style.fontSize = "16px";
+      button.style.marginLeft = "41%";
+      rightContent.style.display = "block"; // Show right content
     }
   }
 
@@ -423,9 +468,11 @@ function createBanner() {
   handleResponsiveLayout(mediaQuery);
 
   // Listen for changes in screen size and adjust styles accordingly
-  mediaQuery.addListener(handleResponsiveLayout);
-}
+  mediaQuery.addEventListener("change", handleResponsiveLayout);
 
+  // Clean up the event listener when not needed (e.g., component unmount)
+  // mediaQuery.removeEventListener("change", handleResponsiveLayout);
+}
 
 // Ensure that everything is executed after DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
