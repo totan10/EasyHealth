@@ -10,51 +10,56 @@ body {
   padding: 0;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+
+/* Define animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Navbar positioning */
-.navbar {
+.flip-card {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s; /* Add transition for smooth flip animation */
+  transform-style: preserve-3d; /* Preserve 3D effect */
+ 
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
   position: relative;
-  z-index: 1000; /* Ensure navbar is above other elements */
+  transform-style: preserve-3d; /* Preserve 3D effect */
 }
 
-.navbar-brand img {
-  max-width: 100%;
-  height: auto;
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Hide back face initially */
 }
 
-
-/* Ensure other content is positioned above the video as well */
-.container,
-#videoContainer {
-    position: relative;
-    z-index: 999; /* Ensure content is above the video (adjust as needed) */
+.flip-card-front {
+  background-size: cover;
 }
 
-
-/* Custom styles for slider animation */
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-out {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+.flip-card-back {
+  background-color: #0d345b; /* Dark blue background color */
+  color: white; /* Text color on the back side */
+  display: none; /* Initially hide the back side */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transform: rotateY(180deg); /* Start with back side flipped */
+  border-radius: 5px;
 }
 
 

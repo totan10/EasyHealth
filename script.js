@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navLink.className = "nav-link";
     navLink.href = "#";
     navLink.textContent = text;
+    navLink.style.color='white'
 
     // Check if the nav item should be collapsible
     if (text === "RETAILTECH" || text === "BIZSUPPORT") {
@@ -201,12 +202,11 @@ function createAboutUs() {
   aboutUsContainer.appendChild(aboutHeader);
 
   // Gradient Horizontal Line
-  const line = document.createElement("hr");
+  const line = document.createElement("div");
   line.style.width = "100%"; // Line width
-  line.style.height = "3px"; // Line height
+  line.style.height = "15px"; // Line height
   line.style.border = "none"; // No border
-  line.style.backgroundImage =
-    "linear-gradient(to right, #1e90ff, rgb(239 242 244))"; // Gradient colors
+  line.style.backgroundImage = `url('/Assets/images/dot_line.png')`;
   line.style.marginBottom = "20px"; // Margin below line
 
   // Append line to aboutUsContainer
@@ -571,30 +571,18 @@ function createManagedSolutionsSection() {
   fullScreenContainer.appendChild(lineContainer);
   // Paragraph
   const paragraph = document.createElement("p");
-  paragraph.textContent =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-  paragraph.style.marginTop = "20px";
+  paragraph.innerHTML =
+    "Lorem ipsum dolor sit amet,<br> consectetur adipiscing elit.";
+  paragraph.style.margin = "70px";
   paragraph.style.padding = "0 20px";
   paragraph.style.textAlign = "center";
   paragraph.style.fontSize = "16px";
-  paragraph.style.opacity = "0";
-  paragraph.style.transform = "translateY(-20px)";
-  paragraph.style.transition =
-    "opacity 0.5s ease-in-out, transform 0.5s ease-in-out";
+  // paragraph.style.opacity = "0";
+  // paragraph.style.transform = "translateY(-20px)";
+  // paragraph.style.transition =
+  //   "opacity 0.5s ease-in-out, transform 0.5s ease-in-out";
   fullScreenContainer.appendChild(paragraph);
 
-  // Boxes Container
-  const boxesContainer = document.createElement("div");
-  boxesContainer.className = "boxes-container";
-  boxesContainer.style.display = "grid";
-  boxesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(30%, 1fr))";
-  boxesContainer.style.gap = "20px";
-  boxesContainer.style.width='60%'
-  boxesContainer.style.justifyItems = "center";
-  boxesContainer.style.marginTop = "20px";
-  fullScreenContainer.appendChild(boxesContainer);
-
-  // Individual Boxes Data
   const boxesData = [
     { name: "Users Globally", count: "500+", icon: "users" },
     { name: "Global Partners", count: "50+", icon: "globe" },
@@ -603,59 +591,222 @@ function createManagedSolutionsSection() {
     { name: "Business Applications", count: "200+", icon: "briefcase" },
   ];
 
-  // Create Box Function
-  function createBox(text, count, iconClass) {
-    const box = document.createElement("div");
-    box.className = "box";
-    box.style.width = "80%";
-    box.style.height = "160px";
-    box.style.padding = "10px";
-    box.style.border = "1px solid #1e90ff";
-    box.style.borderRadius = "5px";
-    box.style.textAlign = "center";
+  // Create container div
+  const containerDiv = document.createElement("div");
+  containerDiv.classList.add("container");
+  containerDiv.style.width = "40%";
+  // Create row div
+  const rowDiv = document.createElement("div");
+  rowDiv.classList.add("row", "justify-content-center", "gap-3");
 
-    // Font Awesome Icon
-    const icon = document.createElement("i");
-    icon.className = `fas fa-${iconClass}`; // Font Awesome icon class
-    icon.style.fontSize = "24px";
-    icon.style.color = "#1e90ff";
-    box.appendChild(icon);
+  // Append row div to container div
+  containerDiv.appendChild(rowDiv);
 
-    const countSpan = document.createElement("span");
-    countSpan.textContent = count;
-    countSpan.style.display = "block";
-    countSpan.style.fontSize = "20px";
-    countSpan.style.fontWeight = "bold";
-    countSpan.style.color = "#1e90ff";
-    box.appendChild(countSpan);
+  // Loop through boxes data
+  boxesData.forEach((box, index) => {
+    // Create column div
+    const columnDiv = document.createElement("div");
+    columnDiv.classList.add("col-lg-4", "col-md-6");
 
-    const label = document.createElement("div");
-    label.textContent = text;
-    box.appendChild(label);
+    // Create box div
+    const boxDiv = document.createElement("div");
+    boxDiv.classList.add("box", "justify-content-center");
+    // Create icon element
+    const iconElement = document.createElement("i");
+    iconElement.classList.add(
+      "fas",
+      `fa-${box.icon}`,
+      "fa-3x",
+      "mb-3",
+      "text-info"
+    );
+    iconElement.style.marginTop = "5px";
+    // Create count element
+    const countElement = document.createElement("div");
+    countElement.textContent = box.count;
+    countElement.classList.add("fw-bold", "fs-4", "text-info");
 
-    return box;
-  }
+    // Create name element
+    const nameElement = document.createElement("div");
+    nameElement.textContent = box.name;
+    // nameElement.classList.add("text-muted", "fs-7");
+    nameElement.style.fontSize = "small";
+    // Append icon, count, and name to box div
+    boxDiv.appendChild(iconElement);
+    boxDiv.appendChild(countElement);
+    boxDiv.appendChild(nameElement);
+    columnDiv.style.backgroundImage = `url("/Assets/images/gradient_border.png")`;
+    columnDiv.style.backgroundPosition = "center";
+    columnDiv.style.backgroundSize = "cover";
+    columnDiv.style.backgroundRepeat = "no-repeat";
+    boxDiv.style.textAlign = "center";
+    columnDiv.style.marginBottom = "20px";
+    columnDiv.style.height = "139px";
+    columnDiv.style.width = "160px";
+    // Append box div to column div
+    columnDiv.appendChild(boxDiv);
 
-  // Populate Boxes
-  boxesData.forEach((data) => {
-    const box = createBox(data.name, data.count, data.icon);
-    boxesContainer.appendChild(box);
+    // Append column div to row div
+    rowDiv.appendChild(columnDiv);
   });
-
+  fullScreenContainer.appendChild(containerDiv);
   // Append Full Screen Container to document body
   document.body.appendChild(fullScreenContainer);
+
+  createFeaturedIn();
 }
-// Function to animate count from start to end value
-function animateCount(element, start, end, duration) {
-  let current = start;
-  const range = end - start;
-  const increment = end > start ? 1 : -1;
-  const stepTime = Math.abs(Math.floor(duration / range));
-  const timer = setInterval(() => {
-    current += increment;
-    element.textContent = current + "+";
-    if (current === end) {
-      clearInterval(timer);
+
+function createFeaturedIn() {
+  const featuredContainer = document.createElement("div");
+  featuredContainer.className = "feature-screen-container";
+  featuredContainer.style.width = "100vw";
+  featuredContainer.style.display = "flex";
+  //fullScreenContainer.style.justifyContent = "center";
+  featuredContainer.style.alignItems = "center";
+  featuredContainer.style.flexDirection = "column";
+  featuredContainer.style.overflow = "hidden"; // Hide overflow to prevent horizontal scroll
+  featuredContainer.style.padding = "0 20px"; // Add horizontal padding
+  // Header Text
+  const headerText = document.createElement("h4");
+  headerText.textContent = "FEATURED ";
+  headerText.style.fontSize = "22px";
+  headerText.style.color = "black"; // Dark text color
+  headerText.style.marginTop = "20px";
+  headerText.style.padding = "10px";
+  headerText.style.display = "none";
+  headerText.style.animation = "slideIn 0.5s ease forwards";
+  headerText.style.fontWeight = "700";
+  // Blue Text Span
+  const blueText = document.createElement("span");
+  blueText.textContent = "IN";
+  blueText.style.color = "#1e90ff"; // Blue text color
+  headerText.appendChild(blueText);
+
+  featuredContainer.appendChild(headerText);
+  // Gradient Horizontal Line
+  const line = document.createElement("div");
+  line.style.width = "60%"; // Line width
+  line.style.height = "15px"; // Line height
+  line.style.border = "none"; // No border
+  line.style.backgroundImage = `url('/Assets/images/dot_line.png')`;
+  line.style.marginBottom = "20px"; // Margin below line
+  featuredContainer.appendChild(line);
+
+  // Function to check if element is in viewport
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight)
+    );
+  }
+
+  // Function to handle scroll event
+  function handleScroll() {
+    if (isInViewport(headerText)) {
+      headerText.style.display = "block"; // Show headerText
+      window.removeEventListener("scroll", handleScroll); // Remove scroll listener after revealing headerText
     }
-  }, stepTime);
+  }
+
+  // Add scroll event listener to trigger revealing headerText
+  window.addEventListener("scroll", handleScroll);
+
+  // Create a full-width container
+  const fullWidthContainer = document.createElement("div");
+  fullWidthContainer.style.width = "100vw";
+  fullWidthContainer.style.display = "flex";
+  fullWidthContainer.style.justifyContent = "center";
+  fullWidthContainer.style.marginTop = "40px"; // Add spacing below the previous section
+
+  // Create the flip container
+  const flipContainer = document.createElement("div");
+  flipContainer.className = "flip-container";
+  flipContainer.style.width = "250px"; // Set the width of the flip container
+  flipContainer.style.height = "125px"; // Set the height of the flip container
+  flipContainer.style.perspective = "1000px"; // Add perspective for 3D effect
+
+  // Create the flip card
+  const flipCard = document.createElement("div");
+  flipCard.className = "flip-card";
+  flipCard.style.width = "100%";
+  flipCard.style.height = "100%";
+  flipCard.style.transition = "transform 0.5s"; // Add transition for smooth flip animation
+  flipCard.style.transformStyle = "preserve-3d"; // Preserve 3D effect
+
+  // Create the flip card inner container
+  const flipCardInner = document.createElement("div");
+  flipCardInner.className = "flip-card-inner";
+  flipCardInner.style.width = "100%";
+  flipCardInner.style.height = "100%";
+  flipCardInner.style.position = "relative";
+  flipCardInner.style.transformStyle = "preserve-3d";
+
+  // Create the front side of the flip card
+  const frontSide = document.createElement("div");
+  frontSide.className = "flip-card-front";
+  frontSide.style.width = "100%";
+  frontSide.style.height = "100%";
+  frontSide.style.backgroundImage = "url('/Assets/images/forbes.png')"; // Set the front image
+  frontSide.style.backgroundSize = "cover";
+  frontSide.style.position = "absolute";
+  frontSide.style.top = "0";
+  frontSide.style.left = "0";
+  frontSide.style.right = "0";
+  frontSide.style.bottom = "0";
+  frontSide.style.backfaceVisibility = "hidden"; // Hide back face of the front side
+
+  // Create the back side of the flip card
+  const backSide = document.createElement("div");
+  backSide.className = "flip-card-back";
+  backSide.style.width = "100%";
+  backSide.style.height = "100%";
+  backSide.style.backgroundColor = "#022F3C"; // Set dark blue background color
+  backSide.style.color = "white"; // Set text color on the back side
+  backSide.style.display = "none"; // Initially hide the back side
+  backSide.style.position = "absolute";
+  backSide.style.top = "0";
+  backSide.style.left = "0";
+  backSide.style.right = "0";
+  backSide.style.bottom = "0";
+  backSide.style.padding = "20px";
+  backSide.style.transform = "rotateY(180deg)"; // Start with back side flipped
+  backSide.style.backfaceVisibility = "hidden"; // Hide back face of the back side
+  backSide.style.borderRadius='10px'
+  // Text content on the back side
+  const backText = document.createElement("p");
+  backText.textContent = "Hover to see more";
+  backSide.appendChild(backText);
+
+  // Append front and back sides to the flip card inner container
+  flipCardInner.appendChild(frontSide);
+  flipCardInner.appendChild(backSide);
+
+  // Append the flip card inner container to the flip card
+  flipCard.appendChild(flipCardInner);
+
+  // Add event listeners for hover effect to flip the card
+  flipCard.addEventListener("mouseenter", () => {
+      flipCard.style.transform = "rotateY(180deg)";
+      backSide.style.display = "block";
+  });
+
+  flipCard.addEventListener("mouseleave", () => {
+      flipCard.style.transform = "rotateY(0deg)";
+      backSide.style.display = "none";
+  });
+
+  // Append the flip card to the flip container
+  flipContainer.appendChild(flipCard);
+
+  // Append the flip container to the full-width container
+  fullWidthContainer.appendChild(flipContainer);
+
+  // Append the full-width container to the document body
+ featuredContainer.appendChild(fullWidthContainer);
+ document.body.appendChild(featuredContainer)
+
+
+  
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flip Effect</title>
+    <style>
+      /* Body styles */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        padding: 0%;
+      }
+
+      Flip container styles
+      .flip-container {
+        width: 250px;
+        height: 125px;
+        perspective: 1000px; /* Add perspective for 3D effect */
+      }
+
+      /* Flip card styles */
+      .flip-card {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s; /* Add transition for smooth flip animation */
+        transform-style: preserve-3d;
+      }
+
+      /* Flip card inner container styles */
+      .flip-card-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+      }
+
+      /* Front card styles */
+      .flip-card-front,
+      .flip-card-back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden; /* Hide back side initially */
+      }
+
+      /* Front card specific styles */
+      .flip-card-front {
+        background-image: url("/Assets/images/forbes.png"); /* Set the front image */
+        background-size: cover;
+      }
+
+      /* Back card specific styles */
+      .flip-card-back {
+        background-color: #1e90ff; /* Dark blue background color */
+        color: white; /* Text color on the back side */
+        display: none; /* Initially hide the back side */
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="full-width-container" id="featuredContainer">
+      <div class="flip-container" id="rectangularDiv">
+        <div class="flip-card" id="flipCard">
+          <div class="flip-card-inner">
+            <div class="flip-card-front" id="frontSide"></div>
+            <div class="flip-card-back" id="backSide">
+              <p>Hover to see more</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const flipCard = document.getElementById("flipCard");
+        const frontSide = document.getElementById("frontSide");
+        const backSide = document.getElementById("backSide");
+
+        flipCard.addEventListener("mouseenter", function () {
+          flipCard.style.transform = "rotateY(180deg)";
+          backSide.style.display = "flex";
+        });
+
+        flipCard.addEventListener("mouseleave", function () {
+          flipCard.style.transform = "rotateY(0deg)";
+          backSide.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
