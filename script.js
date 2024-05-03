@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navLink.className = "nav-link";
     navLink.href = "#";
     navLink.textContent = text;
-    navLink.style.color='white'
+    navLink.style.color = "white";
 
     // Check if the nav item should be collapsible
     if (text === "RETAILTECH" || text === "BIZSUPPORT") {
@@ -773,7 +773,7 @@ function createFeaturedIn() {
   backSide.style.padding = "20px";
   backSide.style.transform = "rotateY(180deg)"; // Start with back side flipped
   backSide.style.backfaceVisibility = "hidden"; // Hide back face of the back side
-  backSide.style.borderRadius='10px'
+  backSide.style.borderRadius = "10px";
   // Text content on the back side
   const backText = document.createElement("p");
   backText.textContent = "Hover to see more";
@@ -788,13 +788,14 @@ function createFeaturedIn() {
 
   // Add event listeners for hover effect to flip the card
   flipCard.addEventListener("mouseenter", () => {
-      flipCard.style.transform = "rotateY(180deg)";
-      backSide.style.display = "block";
+    flipCard.style.transform = "rotateY(180deg)";
+    backSide.style.display = "block";
+    flipCard.style.cursor = "pointer";
   });
 
   flipCard.addEventListener("mouseleave", () => {
-      flipCard.style.transform = "rotateY(0deg)";
-      backSide.style.display = "none";
+    flipCard.style.transform = "rotateY(0deg)";
+    backSide.style.display = "none";
   });
 
   // Append the flip card to the flip container
@@ -804,9 +805,119 @@ function createFeaturedIn() {
   fullWidthContainer.appendChild(flipContainer);
 
   // Append the full-width container to the document body
- featuredContainer.appendChild(fullWidthContainer);
- document.body.appendChild(featuredContainer)
+  featuredContainer.appendChild(fullWidthContainer);
 
+  // Create a responsive grid container
+  const responsiveGridContainer = document.createElement("div");
+  responsiveGridContainer.className = "responsive-grid-container row";
+  //responsiveGridContainer.style.display = "flex";
+  //responsiveGridContainer.style.justifyContent = "center";
+  responsiveGridContainer.style.marginTop = "40px"; // Add spacing below the previous section
 
-  
+  // Array of background images for each box
+  const backgroundImages = [
+    "/Assets/images/silicon.png",
+    "/Assets/images/republic-1.png",
+    "/Assets/images/outlook-3.png",
+    "/Assets/images/khaleej-2.png",
+  ];
+
+  // Array of text contents for each box
+  const textContentList = ["Discover", "Explore", "Learn", "Create"];
+
+  // Loop to create four boxes
+  for (let i = 0; i < 4; i++) {
+    // Create a box container
+    const boxContainer = document.createElement("div");
+    boxContainer.className = "box-container col-lg-3 col-md-6 col-sm-12 mb-4";
+    boxContainer.style.width = "230px"; // Set the width of each box
+    boxContainer.style.height = "127px"; // Set the height of each box
+    // boxContainer.style.margin = "10px"; // Add margin between boxes
+    // boxContainer.style.position = "relative"; // Position the box container
+    boxContainer.style.perspective = "1000px"; // Add perspective for 3D effect
+
+    // Create the flip card for the box
+    const flipCard = document.createElement("div");
+    flipCard.className = "flip-card";
+    flipCard.style.width = "100%";
+    flipCard.style.height = "100%";
+    flipCard.style.transition = "transform 0.5s"; // Add transition for smooth flip animation
+    flipCard.style.transformStyle = "preserve-3d"; // Preserve 3D effect
+
+    // Create the flip card inner container
+    const flipCardInner = document.createElement("div");
+    flipCardInner.className = "flip-card-inner";
+    flipCardInner.style.width = "100%";
+    flipCardInner.style.height = "100%";
+    flipCardInner.style.position = "relative";
+    flipCardInner.style.transformStyle = "preserve-3d";
+
+    // Create the front side of the flip card
+    const frontSide = document.createElement("div");
+    frontSide.className = "flip-card-front";
+    frontSide.style.width = "100%";
+    frontSide.style.height = "100%";
+    frontSide.style.backgroundImage = `url('${
+      backgroundImages[i % backgroundImages.length]
+    }')`; // Set the front image
+    frontSide.style.backgroundSize = "cover";
+    frontSide.style.position = "absolute";
+    frontSide.style.top = "0";
+    frontSide.style.left = "0";
+    frontSide.style.right = "0";
+    frontSide.style.bottom = "0";
+    frontSide.style.backfaceVisibility = "hidden"; // Hide back face of the front side
+
+    // Create the back side of the flip card
+    const backSide = document.createElement("div");
+    backSide.className = "flip-card-back";
+    backSide.style.width = "100%";
+    backSide.style.height = "100%";
+    backSide.style.backgroundColor = "#022F3C"; // Set dark blue background color
+    backSide.style.color = "white"; // Set text color on the back side
+    backSide.style.display = "none"; // Initially hide the back side
+    backSide.style.position = "absolute";
+    backSide.style.top = "0";
+    backSide.style.left = "0";
+    backSide.style.right = "0";
+    backSide.style.bottom = "0";
+    backSide.style.padding = "10px";
+    backSide.style.transform = "rotateY(180deg)"; // Start with back side flipped
+    backSide.style.backfaceVisibility = "hidden"; // Hide back face of the back side
+    backSide.style.borderRadius = "10px";
+    // Text content on the back side
+    const backText = document.createElement("p");
+    backText.textContent = textContentList[i % textContentList.length]; // Set the text content
+    backSide.appendChild(backText);
+
+    // Append front and back sides to the flip card inner container
+    flipCardInner.appendChild(frontSide);
+    flipCardInner.appendChild(backSide);
+
+    // Append the flip card inner container to the flip card
+    flipCard.appendChild(flipCardInner);
+
+    // Add event listeners for hover effect to flip the card
+    flipCard.addEventListener("mouseover", () => {
+      flipCard.style.transform = "rotateY(180deg)";
+      backSide.style.display = "block";
+      flipCard.style.cursor='pointer'
+    });
+
+    flipCard.addEventListener("mouseout", () => {
+      flipCard.style.transform = "rotateY(0deg)";
+      backSide.style.display = "none";
+    });
+
+    // Append the flip card to the box container
+    boxContainer.appendChild(flipCard);
+
+    // Append the box container to the responsive grid container
+    responsiveGridContainer.appendChild(boxContainer);
+  }
+
+  // Append the responsive grid container to the document body
+  featuredContainer.appendChild(responsiveGridContainer);
+
+  document.body.appendChild(featuredContainer);
 }
