@@ -26,20 +26,5 @@ body {
 
 
 
-/* Medium screens (2 items per row) */
-@media screen and (max-width: 991px) {
-  .box-container {
-      width: calc(50% - 20px); /* 2 items per row */
-  }
-}
-
-/* Small screens (1 item per row) */
-@media screen and (max-width: 575px) {
-  .box-container {
-      width: 100%; /* 1 item per row */
-  }
-}
-
-
 
 
