@@ -1019,7 +1019,6 @@ function createJoinUsBanner() {
   createSponsoreSlider();
 }
 
-
 function createSponsoreSlider() {
   const imageUrls = [
     "/Assets/images/usiic.png",
@@ -1035,21 +1034,21 @@ function createSponsoreSlider() {
 
   // Create a new swiper container
   const swiperParentContainer = document.createElement("div");
-  swiperParentContainer.style.height='200px'
-  swiperParentContainer.style.display='flex'
-  swiperParentContainer.style.justifyContent='center'
-  swiperParentContainer.style.alignItems='center'
+  swiperParentContainer.style.height = "200px";
+  swiperParentContainer.style.display = "flex";
+  swiperParentContainer.style.justifyContent = "center";
+  swiperParentContainer.style.alignItems = "center";
   const swiperContainer = document.createElement("div");
   swiperContainer.classList.add("swiper-container");
-  swiperParentContainer.style.backgroundImage=`url("/Assets/images/bg-iso.jpg")`
-  swiperParentContainer.style.backgroundSize="contain"
-  swiperParentContainer.style.backgroundPosition="center"
-  swiperContainer.style.height='100%'
-  swiperContainer.style.width='80%'
-  swiperContainer.style.height='80%'
-  swiperContainer.style.padding='20px'
-  swiperContainer.style.overflow='hidden'
-  
+  swiperParentContainer.style.backgroundImage = `url("/Assets/images/bg-iso.jpg")`;
+  swiperParentContainer.style.backgroundSize = "contain";
+  swiperParentContainer.style.backgroundPosition = "center";
+  swiperContainer.style.height = "100%";
+  swiperContainer.style.width = "80%";
+  swiperContainer.style.height = "80%";
+  swiperContainer.style.padding = "20px";
+  swiperContainer.style.overflow = "hidden";
+
   // Create swiper wrapper inside the container
   const swiperWrapper = document.createElement("div");
   swiperWrapper.classList.add("swiper-wrapper");
@@ -1064,7 +1063,7 @@ function createSponsoreSlider() {
     slide.style.backgroundImage = `url('${url}')`;
     swiperWrapper.appendChild(slide);
   });
-  swiperParentContainer.appendChild(swiperContainer)
+  swiperParentContainer.appendChild(swiperContainer);
   // Append swiper container to the body
   document.body.appendChild(swiperParentContainer);
 
@@ -1089,12 +1088,12 @@ function createSponsoreSlider() {
       524: {
         slidesPerView: 1,
       },
-      300:{
-        slidesPerView:1
+      300: {
+        slidesPerView: 1,
       },
-      900:{
-        slidesPerView:5,
-      }
+      900: {
+        slidesPerView: 5,
+      },
     },
     grabCursor: true,
   });
@@ -1102,4 +1101,106 @@ function createSponsoreSlider() {
   createCaseStudy();
 }
 
+function createCaseStudy() {
+  const caseContainer = document.createElement("div");
+  caseContainer.className = "case-container";
+  caseContainer.style.backgroundImage = "url('/Assets/images/CASE-G.jpg')";
+  caseContainer.style.backgroundSize = "cover";
+  caseContainer.style.width = "100%";
+  caseContainer.style.height = "120vh";
+  caseContainer.style.display = "flex";
+  caseContainer.style.alignItems = "center";
+  caseContainer.style.justifyContent = "center";
+  caseContainer.style.flexDirection = "column";
+  // Header Text
+  const headerText = document.createElement("h4");
+  headerText.textContent = "CASE STUDY";
+  headerText.style.fontSize = "28px";
+  headerText.style.color = "white"; // Dark text color
+  headerText.style.marginTop = "20px";
+  //headerText.style.padding = "10px";
+  headerText.style.opacity = "0";
+  headerText.style.fontWeight = "700";
+  headerText.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  caseContainer.appendChild(headerText);
+  // Gradient Horizontal Line
+  const line = document.createElement("div");
+  line.style.width = "15%"; // Line width
+  line.style.height = "15px"; // Line height
+  line.style.border = "none"; // No border
+  line.style.backgroundImage = `url('/Assets/images/fd.png')`;
+  line.style.backgroundSize = "cover";
+  //line.style.backgroundPosition='center'
+  line.style.marginBottom = "20px"; // Margin below line
+  line.style.opacity = "0";
+  line.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  caseContainer.appendChild(line);
 
+  const paragraph = document.createElement("p");
+  paragraph.textContent = `Explore various challenges we've successfully resolved for our clients through this extensive range of case studies. Our primary goal is to deliver tailored solutions for the distinct Issues our clients encounter across various Industry sectors.`;
+  paragraph.style.textAlign = "center";
+  paragraph.style.color = "white";
+  paragraph.style.opacity = "0"; // Initially hide the paragraph
+  paragraph.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  paragraph.style.margin = "2% 0";
+  paragraph.style.width = "70%";
+  paragraph.style.fontSize = "large";
+  paragraph.style.fontWeight = "300";
+  caseContainer.appendChild(paragraph);
+  // Function to handle scroll event for fade-in effect
+  function handleScroll() {
+    // Get the position of the bannerContainer relative to the viewport
+    const bannerTop = caseContainer.getBoundingClientRect().top;
+    console.log(bannerTop);
+    // Check if the bannerContainer is in the viewport
+    if (bannerTop < window.innerHeight / 2) {
+      // If bannerContainer is in the viewport, fade in the header
+      headerText.style.opacity = "1";
+      line.style.opacity = "1";
+      paragraph.style.opacity = "1";
+    } else {
+      headerText.style.opacity = "0";
+      line.style.opacity = "0";
+      paragraph.style.opacity = "0";
+    }
+  }
+  const imageUrls = [
+    "/Assets/images/case-study-1.jpg",
+    "/Assets/images/case-study-2.jpg",
+    "/Assets/images/case-study-3.jpg",
+    "/Assets/images/case-study-4.jpg",
+  ];
+ 
+  const swiperContainer = document.createElement("div");
+  swiperContainer.classList.add("swiper-container");
+  swiperParentContainer.style.backgroundImage = `url("/Assets/images/bg-iso.jpg")`;
+  swiperParentContainer.style.backgroundSize = "contain";
+  swiperParentContainer.style.backgroundPosition = "center";
+  swiperContainer.style.height = "400px";
+  swiperContainer.style.width = "100%%";
+  swiperContainer.style.padding = "20px";
+  swiperContainer.style.overflow = "hidden";
+
+  // Create swiper wrapper inside the container
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.classList.add("swiper-wrapper");
+
+  // Append swiper wrapper to swiper container
+  swiperContainer.appendChild(swiperWrapper);
+
+  // Populate swiper slides with images
+  imageUrls.forEach(function (url) {
+    const slide = document.createElement("div");
+    slide.classList.add("swiper-slide");
+    slide.style.backgroundImage = `url('${url}')`;
+    swiperWrapper.appendChild(slide);
+  });
+  swiperParentContainer.appendChild(swiperContainer);
+
+  // Add scroll event listener to window
+  window.addEventListener("scroll", handleScroll);
+
+  // Initial check on page load in case the bannerContainer is already in view
+  handleScroll();
+  document.body.appendChild(caseContainer);
+}
