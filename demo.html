@@ -3,96 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flip Effect</title>
+    <title>Auto Slider with Zoom Effect</title>
     <style>
-      /* Body styles */
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        padding: 0%;
-      }
 
-      Flip container styles
-      .flip-container {
-        width: 250px;
-        height: 125px;
-        perspective: 1000px; /* Add perspective for 3D effect */
-      }
+.mySlides {display: none}
 
-      /* Flip card styles */
-      .flip-card {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.5s; /* Add transition for smooth flip animation */
-        transform-style: preserve-3d;
-      }
+img {vertical-align: middle;}
+    
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
 
-      /* Flip card inner container styles */
-      .flip-card-inner {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-      }
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
 
-      /* Front card styles */
-      .flip-card-front,
-      .flip-card-back {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        backface-visibility: hidden; /* Hide back side initially */
-      }
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
 
-      /* Front card specific styles */
-      .flip-card-front {
-        background-image: url("/Assets/images/forbes.png"); /* Set the front image */
-        background-size: cover;
-      }
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
 
-      /* Back card specific styles */
-      .flip-card-back {
-        background-color: #1e90ff; /* Dark blue background color */
-        color: white; /* Text color on the back side */
-        display: none; /* Initially hide the back side */
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        transform: rotateY(180deg);
-      }
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active1, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
     </style>
   </head>
   <body>
-    <div class="full-width-container" id="featuredContainer">
-      <div class="flip-container" id="rectangularDiv">
-        <div class="flip-card" id="flipCard">
-          <div class="flip-card-inner">
-            <div class="flip-card-front" id="frontSide"></div>
-            <div class="flip-card-back" id="backSide">
-              <p>Hover to see more</p>
-            </div>
-          </div>
-        </div>
+    <div class="slideshow-container">
+
+      <div class="mySlides">
+        <!-- <div class="numbertext">1 / 3</div> -->
+        <img src="/Assets/images/khaleej-2.png" style="width:100%">
+        <!-- <div class="text">Caption Text</div> -->
       </div>
+      
+      <div class="mySlides">
+        <!-- <div class="numbertext">2 / 3</div> -->
+        <img  src="/Assets/images/forbes.png"  style="width:100%">
+        <!-- <div class="text">Caption Two</div> -->
+      </div>
+      
+      <div class="mySlides">
+        <!-- <div class="numbertext">3 / 3</div> -->
+        <img  src="/Assets/images/republic-1.png"  style="width:100%">
+        <!-- <div class="text">Caption Three</div> -->
+      </div>
+      
+      <!-- <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a> -->
+      
     </div>
+      <br>
+      
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+      </div>
+      
+  
+  </div>
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const flipCard = document.getElementById("flipCard");
-        const frontSide = document.getElementById("frontSide");
-        const backSide = document.getElementById("backSide");
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
 
-        flipCard.addEventListener("mouseenter", function () {
-          flipCard.style.transform = "rotateY(180deg)";
-          backSide.style.display = "flex";
-        });
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
 
-        flipCard.addEventListener("mouseleave", function () {
-          flipCard.style.transform = "rotateY(0deg)";
-          backSide.style.display = "none";
-        });
-      });
-    </script>
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active1", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active1";
+    }
+
+    // Automatic slideshow
+    var slideInterval = setInterval(plusSlides, 1000, 1); // Change slide every 5 seconds
+
+    // Pause automatic slideshow when hovering over the slideshow container
+    document.querySelector('.slideshow-container').addEventListener('mouseenter', function () {
+        clearInterval(slideInterval);
+    });
+
+    // Resume automatic slideshow when mouse leaves the slideshow container
+    document.querySelector('.slideshow-container').addEventListener('mouseleave', function () {
+        slideInterval = setInterval(plusSlides, 5000, 1);
+    });
+  </script>
   </body>
 </html>

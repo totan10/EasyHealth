@@ -670,7 +670,7 @@ function createFeaturedIn() {
   const headerText = document.createElement("h4");
   headerText.textContent = "FEATURED ";
   headerText.style.fontSize = "22px";
-  headerText.style.color = "black"; // Dark text color
+  headerText.style.color = "#1e90ff"; // Dark text color
   headerText.style.marginTop = "20px";
   headerText.style.padding = "10px";
   headerText.style.display = "none";
@@ -679,7 +679,7 @@ function createFeaturedIn() {
   // Blue Text Span
   const blueText = document.createElement("span");
   blueText.textContent = "IN";
-  blueText.style.color = "#1e90ff"; // Blue text color
+  blueText.style.color = "black"; // Blue text color
   headerText.appendChild(blueText);
 
   featuredContainer.appendChild(headerText);
@@ -901,7 +901,7 @@ function createFeaturedIn() {
     flipCard.addEventListener("mouseover", () => {
       flipCard.style.transform = "rotateY(180deg)";
       backSide.style.display = "block";
-      flipCard.style.cursor='pointer'
+      flipCard.style.cursor = "pointer";
     });
 
     flipCard.addEventListener("mouseout", () => {
@@ -920,4 +920,186 @@ function createFeaturedIn() {
   featuredContainer.appendChild(responsiveGridContainer);
 
   document.body.appendChild(featuredContainer);
+
+  createJoinUsBanner();
 }
+
+function createJoinUsBanner() {
+  const bannerContainer = document.createElement("div");
+  bannerContainer.className = "joinus-banner-container";
+  bannerContainer.style.backgroundImage = "url('/Assets/images/HANS.jpg')";
+  bannerContainer.style.backgroundSize = "cover";
+  bannerContainer.style.height = "55vh"; // Set height for the banner
+  bannerContainer.style.position = "relative"; // Set position relative for absolute elements
+  bannerContainer.style.zIndex = "999";
+  bannerContainer.style.display = "flex";
+  bannerContainer.style.alignItems = "center";
+  bannerContainer.style.flexDirection = "column";
+  // Create the image element
+  const img = document.createElement("img");
+  img.src = "/Assets/images/bannerBoder.png"; // Set the image source
+  img.style.position = "absolute";
+  img.style.top = "50%"; // Center vertically
+  img.style.left = "50%"; // Center horizontally
+  img.style.transform = "translate(-50%, -50%)"; // Center the image precisely
+  img.style.maxWidth = "85%"; // Ensure the image is responsive
+  img.style.maxHeight = "85%"; // Ensure the image is responsive
+  img.style.objectFit = "contain"; // Maintain aspect ratio
+  img.style.zIndex = "-1";
+  // Append the image to the banner container
+  bannerContainer.appendChild(img);
+
+  const header = document.createElement("h1");
+  header.innerHTML =
+    'JOIN OUR <span style="color: #2fb4cb;">ASSOCIATE</span> NETWORK';
+  header.style.position = "relative";
+  header.style.textAlign = "center";
+  header.style.marginTop = "3.5%"; // Margin from the top
+  header.style.opacity = "0"; // Initially hide the header
+  header.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  header.style.color = "white";
+  header.style.fontSize = "22px";
+  header.style.fontWeight = "700";
+  // Append the header to the banner container
+  bannerContainer.appendChild(header);
+
+  // Create the paragraph element
+  const paragraph = document.createElement("p");
+  paragraph.textContent =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  paragraph.style.textAlign = "center";
+  paragraph.style.color = "white";
+  paragraph.style.opacity = "0"; // Initially hide the paragraph
+  paragraph.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  paragraph.style.marginTop = "6%";
+  paragraph.style.width = "70%";
+  bannerContainer.appendChild(paragraph);
+
+  // Create the button element
+  const button = document.createElement("button");
+  button.textContent = "Join Now";
+  button.style.backgroundColor = "transparent";
+  button.style.color = "white";
+  button.style.border = "1px solid white";
+  button.style.width = "200px";
+  button.style.borderRadius = "5px";
+  button.style.padding = "10px 20px";
+  button.style.cursor = "pointer";
+  button.style.marginTop = "6%";
+  button.style.opacity = "0"; // Initially hide the button
+  button.style.transition = "opacity 0.8s ease"; // Add transition for opacity
+  bannerContainer.appendChild(button);
+
+  // Function to handle scroll event for fade-in effect
+  function handleScroll() {
+    // Get the position of the bannerContainer relative to the viewport
+    const bannerTop = bannerContainer.getBoundingClientRect().top;
+    console.log(bannerTop);
+    // Check if the bannerContainer is in the viewport
+    if (bannerTop < window.innerHeight / 1.5) {
+      // If bannerContainer is in the viewport, fade in the header
+      header.style.opacity = "1";
+      paragraph.style.opacity = "1";
+      button.style.opacity = "1";
+    } else {
+      // Otherwise, hide the header
+      header.style.opacity = "0";
+      paragraph.style.opacity = "0";
+      button.style.opacity = "0";
+    }
+  }
+
+  // Add scroll event listener to window
+  window.addEventListener("scroll", handleScroll);
+
+  // Initial check on page load in case the bannerContainer is already in view
+  handleScroll();
+  document.body.appendChild(bannerContainer);
+
+  createSponsoreSlider();
+}
+
+
+function createSponsoreSlider() {
+  const imageUrls = [
+    "/Assets/images/usiic.png",
+    "/Assets/images/g-tech.png",
+    "/Assets/images/iso.png",
+    "/Assets/images/microsoft.png",
+    "/Assets/images/nasscom-1.png",
+    "https://swiperjs.com/demos/images/nature-6.jpg",
+    "https://swiperjs.com/demos/images/nature-7.jpg",
+    "https://swiperjs.com/demos/images/nature-8.jpg",
+    "https://swiperjs.com/demos/images/nature-9.jpg",
+  ];
+
+  // Create a new swiper container
+  const swiperParentContainer = document.createElement("div");
+  swiperParentContainer.style.height='200px'
+  swiperParentContainer.style.display='flex'
+  swiperParentContainer.style.justifyContent='center'
+  swiperParentContainer.style.alignItems='center'
+  const swiperContainer = document.createElement("div");
+  swiperContainer.classList.add("swiper-container");
+  swiperParentContainer.style.backgroundImage=`url("/Assets/images/bg-iso.jpg")`
+  swiperParentContainer.style.backgroundSize="contain"
+  swiperParentContainer.style.backgroundPosition="center"
+  swiperContainer.style.height='100%'
+  swiperContainer.style.width='80%'
+  swiperContainer.style.height='80%'
+  swiperContainer.style.padding='20px'
+  swiperContainer.style.overflow='hidden'
+  
+  // Create swiper wrapper inside the container
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.classList.add("swiper-wrapper");
+
+  // Append swiper wrapper to swiper container
+  swiperContainer.appendChild(swiperWrapper);
+
+  // Populate swiper slides with images
+  imageUrls.forEach(function (url) {
+    const slide = document.createElement("div");
+    slide.classList.add("swiper-slide");
+    slide.style.backgroundImage = `url('${url}')`;
+    swiperWrapper.appendChild(slide);
+  });
+  swiperParentContainer.appendChild(swiperContainer)
+  // Append swiper container to the body
+  document.body.appendChild(swiperParentContainer);
+
+  // Initialize Swiper
+  const swiper = new Swiper(".swiper-container", {
+    loop: true,
+    slidesPerView: 5, // Number of visible slides
+    spaceBetween: 30, // Space between slides
+    centeredSlides: true, // Center active slide
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+      },
+      524: {
+        slidesPerView: 1,
+      },
+      300:{
+        slidesPerView:1
+      },
+      900:{
+        slidesPerView:5,
+      }
+    },
+    grabCursor: true,
+  });
+
+  createCaseStudy();
+}
+
+
