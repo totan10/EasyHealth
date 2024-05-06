@@ -20,6 +20,7 @@ body {
     opacity: 0;
     transform: translateY(50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -27,15 +28,53 @@ body {
 }
 
 
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 180px;
-  height: 90px;
-  z-index: -1;
-  border-radius: 10px;
+/* Apply border to the centered slide */
+.slide-centered {
+  border-color: #007bff;
+  /* Border color (adjust as needed) */
+  transform: translateX(-5px);
+  /* Adjust the amount based on preference */
 }
 
+/* Keyframes for appearing (from right) animation */
+@keyframes fadeInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+    /* Start off-screen to the right */
+  }
 
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    /* Slide in from the right */
+  }
+}
 
+/* Keyframes for fading out (to left) animation */
+@keyframes fadeOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+    /* Start visible */
+  }
 
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+    /* Slide out to the left */
+  }
+}
+
+/* Apply animations to visible and hidden states */
+.header-visible {
+  animation: fadeInFromRight 0.5s ease forwards;
+  /* Fade in from right */
+}
+
+.header-hidden {
+  animation: fadeOutToLeft 0.3s ease forwards;
+  /* Fade out to left */
+  pointer-events: none;
+  /* Disable pointer events while hidden */
+}

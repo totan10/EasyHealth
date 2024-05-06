@@ -178,8 +178,144 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   animateSlider();
+  createFeatureSlider();
   createAboutUs();
 });
+
+function createFeatureSlider() {
+  // const sliderContainer = document.createElement("div");
+  // sliderContainer.style.position = "relative";
+  // sliderContainer.style.width = "100%";
+  // sliderContainer.style.height = "500px";
+  const imageUrls = [
+    { url: "/Assets/images/01.gif", headertext: "Slide 1" },
+    { url: "/Assets/images/02.gif", headertext: "Slide 2" },
+    { url: "/Assets/images/03.gif", headertext: "Slide 3" },
+    { url: "/Assets/images/01.gif", headertext: "Slide 1" },
+    { url: "/Assets/images/02.gif", headertext: "Slide 2" },
+    { url: "/Assets/images/03.gif", headertext: "Slide 3" },
+  ];
+
+  // const imageUrls = [
+  //   "/Assets/images/usiic.png",
+  //   "/Assets/images/g-tech.png",
+  //   "/Assets/images/iso.png",
+  //   "/Assets/images/microsoft.png",
+  //   "/Assets/images/nasscom-1.png",
+  //   "https://swiperjs.com/demos/images/nature-6.jpg",
+  //   "https://swiperjs.com/demos/images/nature-7.jpg",
+  //   "https://swiperjs.com/demos/images/nature-8.jpg",
+  //   "https://swiperjs.com/demos/images/nature-9.jpg",
+  // ];
+
+  // Create a new swiper container
+  const swiperParentContainer = document.createElement("div");
+  swiperParentContainer.style.height = "500px";
+  swiperParentContainer.style.display = "flex";
+  swiperParentContainer.style.justifyContent = "center";
+  swiperParentContainer.style.alignItems = "center";
+  const swiperContainer = document.createElement("div");
+  swiperContainer.classList.add("myswiper1");
+  swiperContainer.setAttribute('id','swiper-contaner3')
+  swiperContainer.style.height = "100%";
+  swiperContainer.style.width = "80%";
+  swiperContainer.style.height = "80%";
+  
+  swiperContainer.style.overflow = "hidden";
+
+  // Create swiper wrapper inside the container
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.classList.add("swiper-wrapper");
+
+  // Append swiper wrapper to swiper container
+  swiperContainer.appendChild(swiperWrapper);
+
+  // Populate swiper slides with images
+  imageUrls.forEach(function (item) {
+    const slide = document.createElement("div");
+    slide.classList.add("swiper-slide");
+    slide.style.backgroundPosition = "center";
+    slide.style.backgroundSize = "cover";
+    slide.style.width = "100px";
+    slide.style.height = "450px";
+    slide.style.borderRadius = "10px";
+    slide.style.backgroundImage = `url('${item.url}')`;
+    const header=document.createElement('h2');
+    header.style.color='blue';
+    header.classList.add('header-hidden');
+    header.textContent=`${item.headertext}`
+    slide.appendChild(header)
+    swiperWrapper.appendChild(slide);
+  });
+  swiperParentContainer.appendChild(swiperContainer);
+  // Append swiper container to the body
+  document.body.appendChild(swiperParentContainer);
+
+  // Initialize Swiper
+  const swiper = new Swiper("#swiper-contaner3", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 2,
+    slidesPerGroup:1,
+    coverflowEffect: {
+      rotate: 20,
+      stretch: 0,
+      depth: 300,
+      modifier: 2,
+      slideShadows: true,
+    },
+    spaceBetween: 0,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    speed: 800,
+    on: {
+      init: function () {
+        // Initially show header text of the centered slide
+        updateHeaderTextVisibility(this);
+        // Adjust slide transition duration dynamically for smoother animation
+        this.params.speed = 800; // Set desired transition duration (in milliseconds)
+      },
+      slideChangeTransitionEnd: function () {
+        // Update header text visibility on slide change
+        updateHeaderTextVisibility(this);
+      },
+      transitionEnd: function () {
+        // Handle transition end (manual or automated)
+        updateHeaderTextVisibility(this);
+      },
+    },
+  });
+  // Function to update header text visibility based on slide position
+  function updateHeaderTextVisibility(swiperInstance) {
+    var swiperRect = swiperInstance.el.getBoundingClientRect();
+    var slides = swiperInstance.slides;
+
+    slides.forEach(function (slide) {
+      var header = slide.querySelector("h2");
+      var slideRect = slide.getBoundingClientRect();
+
+      // Check if the slide is centered horizontally
+      var isCentered =
+        slideRect.left >= swiperRect.left &&
+        slideRect.right <= swiperRect.right;
+
+      if (isCentered) {
+        slide.classList.add("slide-centered");
+        header.classList.remove("header-hidden");
+        header.classList.add("header-visible");
+      } else {
+        slide.classList.remove("slide-centered");
+        header.classList.remove("header-visible");
+        header.classList.add("header-hidden");
+      }
+    });
+  }
+
+}
 
 function createAboutUs() {
   // Create About Us Container
@@ -994,7 +1130,7 @@ function createJoinUsBanner() {
   function handleScroll() {
     // Get the position of the bannerContainer relative to the viewport
     const bannerTop = bannerContainer.getBoundingClientRect().top;
-    console.log(bannerTop);
+
     // Check if the bannerContainer is in the viewport
     if (bannerTop < window.innerHeight / 1.5) {
       // If bannerContainer is in the viewport, fade in the header
@@ -1039,7 +1175,8 @@ function createSponsoreSlider() {
   swiperParentContainer.style.justifyContent = "center";
   swiperParentContainer.style.alignItems = "center";
   const swiperContainer = document.createElement("div");
-  swiperContainer.classList.add("swiper-container");
+  swiperContainer.classList.add("myswiper");
+  swiperContainer.setAttribute('id','swiper-contaner1')
   swiperParentContainer.style.backgroundImage = `url("/Assets/images/bg-iso.jpg")`;
   swiperParentContainer.style.backgroundSize = "contain";
   swiperParentContainer.style.backgroundPosition = "center";
@@ -1060,6 +1197,11 @@ function createSponsoreSlider() {
   imageUrls.forEach(function (url) {
     const slide = document.createElement("div");
     slide.classList.add("swiper-slide");
+    slide.style.backgroundPosition = "center";
+    slide.style.backgroundSize = "cover";
+    slide.style.width = "180px";
+    slide.style.height = "90px";
+    slide.style.borderRadius = "10px";
     slide.style.backgroundImage = `url('${url}')`;
     swiperWrapper.appendChild(slide);
   });
@@ -1068,11 +1210,11 @@ function createSponsoreSlider() {
   document.body.appendChild(swiperParentContainer);
 
   // Initialize Swiper
-  const swiper = new Swiper(".swiper-container", {
+  const swiper = new Swiper("#swiper-contaner1", {
     loop: true,
-    slidesPerView: 5, // Number of visible slides
-    spaceBetween: 30, // Space between slides
-    centeredSlides: true, // Center active slide
+    slidesPerView: 5, 
+    spaceBetween: 30, 
+    centeredSlides: true, 
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -1151,7 +1293,7 @@ function createCaseStudy() {
   function handleScroll() {
     // Get the position of the bannerContainer relative to the viewport
     const bannerTop = caseContainer.getBoundingClientRect().top;
-    console.log(bannerTop);
+
     // Check if the bannerContainer is in the viewport
     if (bannerTop < window.innerHeight / 2) {
       // If bannerContainer is in the viewport, fade in the header
@@ -1164,43 +1306,127 @@ function createCaseStudy() {
       paragraph.style.opacity = "0";
     }
   }
-  const imageUrls = [
-    "/Assets/images/case-study-1.jpg",
-    "/Assets/images/case-study-2.jpg",
-    "/Assets/images/case-study-3.jpg",
-    "/Assets/images/case-study-4.jpg",
-  ];
- 
-  const swiperContainer = document.createElement("div");
-  swiperContainer.classList.add("swiper-container");
-  swiperParentContainer.style.backgroundImage = `url("/Assets/images/bg-iso.jpg")`;
-  swiperParentContainer.style.backgroundSize = "contain";
-  swiperParentContainer.style.backgroundPosition = "center";
-  swiperContainer.style.height = "400px";
-  swiperContainer.style.width = "100%%";
-  swiperContainer.style.padding = "20px";
-  swiperContainer.style.overflow = "hidden";
-
-  // Create swiper wrapper inside the container
-  const swiperWrapper = document.createElement("div");
-  swiperWrapper.classList.add("swiper-wrapper");
-
-  // Append swiper wrapper to swiper container
-  swiperContainer.appendChild(swiperWrapper);
-
-  // Populate swiper slides with images
-  imageUrls.forEach(function (url) {
-    const slide = document.createElement("div");
-    slide.classList.add("swiper-slide");
-    slide.style.backgroundImage = `url('${url}')`;
-    swiperWrapper.appendChild(slide);
-  });
-  swiperParentContainer.appendChild(swiperContainer);
-
   // Add scroll event listener to window
   window.addEventListener("scroll", handleScroll);
 
   // Initial check on page load in case the bannerContainer is already in view
   handleScroll();
+
+  const imageUrls = [
+    { url: "/Assets/images/case-study-1.jpg", headertext: "Slide 1" },
+    { url: "/Assets/images/case-study-2.jpg", headertext: "Slide 2" },
+    { url: "/Assets/images/case-study-3.jpg", headertext: "Slide 3" },
+    { url: "/Assets/images/case-study-4.jpg", headertext: "Slide 4" },
+  ];
+
+  const swiperContainer = document.createElement("div");
+  swiperContainer.classList.add("swiper-container");
+
+  swiperContainer.style.height = "500px";
+  swiperContainer.style.width = "100%";
+  swiperContainer.style.padding = "20px";
+  swiperContainer.style.overflow = "hidden";
+  swiperContainer.setAttribute('id','swiper-contaner2')
+  // Create swiper wrapper inside the container
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.classList.add("swiper-wrapper");
+
+  // Populate swiper slides with images
+  imageUrls.forEach(function (item) {
+    const slide = document.createElement("div");
+    slide.classList.add("swiper-slide");
+    slide.style.backgroundImage = `url('${item.url}')`;
+    slide.style.backgroundPosition = "center";
+    slide.style.backgroundSize = "cover";
+    slide.style.height = "400px";
+    slide.style.width = "600px";
+    slide.style.borderRadius = "10px";
+    slide.style.border = "3px solid transparent";
+    slide.style.transition = "border-color 0.3s ease transform 0.3s ease";
+
+    // Create and append the header text element
+    const header = document.createElement("h1");
+    header.textContent = item.headertext;
+    header.style.color = "white";
+    header.classList.add("header-hidden");
+    slide.appendChild(header);
+    swiperWrapper.appendChild(slide);
+  });
+  swiperContainer.appendChild(swiperWrapper);
+  caseContainer.appendChild(swiperContainer);
+  console.log(swiperContainer);
+  if (swiperContainer) {
+    var swiper1 = new Swiper("#swiper-container2", {
+      on: {
+        init: function () {
+          console.log(swiper1);
+          // Initially show header text of the centered slide
+          updateHeaderTextVisibility(this);
+          // Adjust slide transition duration dynamically for smoother animation
+          this.params.speed = 800; // Set desired transition duration (in milliseconds)
+        },
+        slideChangeTransitionEnd: function () {
+          // Update header text visibility on slide change
+          console.log("Slide changed");
+          updateHeaderTextVisibility(this);
+        },
+        transitionEnd: function () {
+          // Handle transition end (manual or automated)
+          updateHeaderTextVisibility(this);
+        },
+      },
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 2,
+      slidesPerGroup: 1,
+      coverflowEffect: {
+        rotate: 20,
+        stretch: 0,
+        depth: 300,
+        modifier: 1,
+        slideShadows: true,
+      },
+      spaceBetween: 20,
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      speed: 800,
+    });
+    // Register init event listener
+    swiper1.on("init", function () {
+      console.log("Swiper initialized successfully");
+      // Additional initialization logic here...
+    });
+    console.log(swiper1);
+    // Function to update header text visibility based on slide position
+    function updateHeaderTextVisibility(swiperInstance) {
+      var swiperRect = swiperInstance.el.getBoundingClientRect();
+      var slides = swiperInstance.slides;
+
+      slides.forEach(function (slide) {
+        var header = slide.querySelector("h1");
+        var slideRect = slide.getBoundingClientRect();
+
+        // Check if the slide is centered horizontally
+        var isCentered =
+          slideRect.left >= swiperRect.left &&
+          slideRect.right <= swiperRect.right;
+
+        if (isCentered) {
+          slide.classList.add("slide-centered");
+          header.classList.remove("header-hidden");
+          header.classList.add("header-visible");
+        } else {
+          slide.classList.remove("slide-centered");
+          header.classList.remove("header-visible");
+          header.classList.add("header-hidden");
+        }
+      });
+    }
+  }
+
   document.body.appendChild(caseContainer);
 }
