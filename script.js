@@ -212,6 +212,7 @@ function createFeatureSlider() {
   const swiperParentContainer = document.createElement("div");
   swiperParentContainer.style.height = "500px";
   swiperParentContainer.style.display = "flex";
+  swiperParentContainer.style.position='relative';
   swiperParentContainer.style.justifyContent = "center";
   swiperParentContainer.style.alignItems = "center";
   const swiperContainer = document.createElement("div");
@@ -219,9 +220,10 @@ function createFeatureSlider() {
   swiperContainer.setAttribute('id','swiper-contaner3')
   swiperContainer.style.height = "100%";
   swiperContainer.style.width = "80%";
-  swiperContainer.style.height = "80%";
-  
-  swiperContainer.style.overflow = "hidden";
+  swiperContainer.style.height = "100%";
+  swiperContainer.style.position='absolute'
+  swiperContainer.style.top='-120px'
+  swiperContainer.style.overflowX = "hidden";
 
   // Create swiper wrapper inside the container
   const swiperWrapper = document.createElement("div");
@@ -236,9 +238,11 @@ function createFeatureSlider() {
     slide.classList.add("swiper-slide");
     slide.style.backgroundPosition = "center";
     slide.style.backgroundSize = "cover";
-    slide.style.width = "100px";
-    slide.style.height = "450px";
+    //slide.style.width = "100px";
+    slide.style.height = "400px";
     slide.style.borderRadius = "10px";
+    slide.style.transition=` border-color 0.3s ease transform 0.3s ease`
+    slide.style.border='4px solid transparent';
     slide.style.backgroundImage = `url('${item.url}')`;
     const header=document.createElement('h2');
     header.style.color='blue';
@@ -259,7 +263,7 @@ function createFeatureSlider() {
     slidesPerView: 2,
     slidesPerGroup:1,
     coverflowEffect: {
-      rotate: 20,
+      rotate: 25,
       stretch: 0,
       depth: 300,
       modifier: 2,
@@ -304,11 +308,12 @@ function createFeatureSlider() {
         slideRect.right <= swiperRect.right;
 
       if (isCentered) {
-        slide.classList.add("slide-centered");
+        slide.style.border='4px solid #007bff'
+        slide.style.transform= 'translateX(-5px)'
         header.classList.remove("header-hidden");
         header.classList.add("header-visible");
       } else {
-        slide.classList.remove("slide-centered");
+        slide.style.border='4px solid transparent'
         header.classList.remove("header-visible");
         header.classList.add("header-hidden");
       }
